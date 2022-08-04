@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ExamenModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'examen.dbo.Descripcion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Descripcion">
+          <Key>
+            <PropertyRef Name="DescripcionId" />
+          </Key>
+          <Property Name="DescripcionId" Type="varchar(max)" Nullable="false" />
+          <Property Name="descripcion" Type="varchar(max)" />
+          <Property Name="id_modelo" Type="int" />
+          <Property Name="id_submarca" Type="int" />
+        </EntityType>
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="id_marca" />
+          </Key>
+          <Property Name="id_marca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="marca" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Modelo">
+          <Key>
+            <PropertyRef Name="id_modelo" />
+          </Key>
+          <Property Name="id_modelo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="modelo" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Submarca">
+          <Key>
+            <PropertyRef Name="id_submarca" />
+          </Key>
+          <Property Name="id_submarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="submarca" Type="varchar(max)" Nullable="false" />
+          <Property Name="id_marca" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ExamenModelStoreContainer">
+          <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modelo" EntityType="Self.Modelo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Submarca" EntityType="Self.Submarca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Descripcion" EntityType="Self.Descripcion" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Descripcion].[DescripcionId] AS [DescripcionId], 
+    [Descripcion].[descripcion] AS [descripcion], 
+    [Descripcion].[id_modelo] AS [id_modelo], 
+    [Descripcion].[id_submarca] AS [id_submarca]
+    FROM [dbo].[Descripcion] AS [Descripcion]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExamenModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="id_marca" />
+          </Key>
+          <Property Name="id_marca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="marca1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Modelo">
+          <Key>
+            <PropertyRef Name="id_modelo" />
+          </Key>
+          <Property Name="id_modelo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modelo1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Submarca">
+          <Key>
+            <PropertyRef Name="id_submarca" />
+          </Key>
+          <Property Name="id_submarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="submarca1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_marca" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Descripcion">
+          <Key>
+            <PropertyRef Name="DescripcionId" />
+          </Key>
+          <Property Name="DescripcionId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="id_modelo" Type="Int32" />
+          <Property Name="id_submarca" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="ExamenEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Marcas" EntityType="Self.Marca" />
+          <EntitySet Name="Modeloes" EntityType="Self.Modelo" />
+          <EntitySet Name="Submarcas" EntityType="Self.Submarca" />
+          <EntitySet Name="Descripcions" EntityType="Self.Descripcion" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExamenModelStoreContainer" CdmEntityContainer="ExamenEntities">
+          <EntitySetMapping Name="Marcas">
+            <EntityTypeMapping TypeName="ExamenModel.Marca">
+              <MappingFragment StoreEntitySet="Marca">
+                <ScalarProperty Name="id_marca" ColumnName="id_marca" />
+                <ScalarProperty Name="marca1" ColumnName="marca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modeloes">
+            <EntityTypeMapping TypeName="ExamenModel.Modelo">
+              <MappingFragment StoreEntitySet="Modelo">
+                <ScalarProperty Name="id_modelo" ColumnName="id_modelo" />
+                <ScalarProperty Name="modelo1" ColumnName="modelo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Submarcas">
+            <EntityTypeMapping TypeName="ExamenModel.Submarca">
+              <MappingFragment StoreEntitySet="Submarca">
+                <ScalarProperty Name="id_submarca" ColumnName="id_submarca" />
+                <ScalarProperty Name="submarca1" ColumnName="submarca" />
+                <ScalarProperty Name="id_marca" ColumnName="id_marca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Descripcions">
+            <EntityTypeMapping TypeName="ExamenModel.Descripcion">
+              <MappingFragment StoreEntitySet="Descripcion">
+                <ScalarProperty Name="DescripcionId" ColumnName="DescripcionId" />
+                <ScalarProperty Name="descripcion1" ColumnName="descripcion" />
+                <ScalarProperty Name="id_modelo" ColumnName="id_modelo" />
+                <ScalarProperty Name="id_submarca" ColumnName="id_submarca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
