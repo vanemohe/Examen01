@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Examen01.Controllers
 {
@@ -14,6 +15,8 @@ namespace Examen01.Controllers
             public int Id { get; set; }
             public string nombre { get; set; }
         }
+
+        [EnableCors(origins:"*",headers:"*",methods:"*")]
 
         public IEnumerable<Brand> Get()
         {

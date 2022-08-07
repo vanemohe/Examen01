@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Examen01.Controllers
 {
@@ -15,10 +16,12 @@ namespace Examen01.Controllers
             public int id_submarca { get; set; }
             public int id_modelo { get; set; }
             public string nombre_model { get; set; }
+            public string DescripcionId { get; set; }
 
-            
+
+
         }
-
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IEnumerable<Modelo> Get(int id)
         {
             using (Models.ExamenEntities db = new Models.ExamenEntities())
@@ -28,6 +31,7 @@ namespace Examen01.Controllers
                            where d.id_submarca == id
                            select new Modelo
                            {
+                               DescripcionId=d.DescripcionId,
                                id_submarca = (int)d.id_submarca,
                                id_modelo = (int)d.id_modelo,
                                nombre_model = mo.modelo1

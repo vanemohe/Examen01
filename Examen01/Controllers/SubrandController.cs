@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Examen01.Controllers
 {
@@ -17,6 +18,7 @@ namespace Examen01.Controllers
             public int id_marc { get; set; }
         }
 
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IEnumerable<Subrand> Get(int id)
         {
             using (Models.ExamenEntities db = new Models.ExamenEntities())
